@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "724939020543",
+    "firebase_url": "https://pizza-mania-af6fa-default-rtdb.firebaseio.com",
+    "project_id": "pizza-mania-af6fa",
+    "storage_bucket": "pizza-mania-af6fa.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:724939020543:android:408336b71628e0315ed4ca",
+        "android_client_info": {
+          "package_name": "my.foodon.pizzamania"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "724939020543-6e4i76fd7161po37tuu2p6jprukrvk3h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGsPRfv0ZtrXRimFGimSoAc_LmRLHsc2Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "724939020543-6e4i76fd7161po37tuu2p6jprukrvk3h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
