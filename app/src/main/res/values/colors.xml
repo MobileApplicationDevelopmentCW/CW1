@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <color name="red">#fc3503</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="btn_next">#F28F21</color>
-    <color name="yellow">#e5eb34</color>
-</resources>
