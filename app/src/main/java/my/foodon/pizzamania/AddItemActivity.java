@@ -1,11 +1,10 @@
 package my.foodon.pizzamania;
 
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-    import android.widget.ArrayAdapter;
-    import android.widget.Button;
-    import android.widget.CheckBox;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -15,6 +14,11 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 public class AddItemActivity extends AppCompatActivity {
 
     private ImageView imagePreview;
@@ -23,14 +27,17 @@ public class AddItemActivity extends AppCompatActivity {
     private CheckBox cbInStock;
     private Button btnAddItem;
 
-    private Uri selectedImageUri; // store selected image
+    private Uri selectedImageUri;
 
-    // Register an ActivityResultLauncher for selecting an image
+    private DatabaseReference databaseRef;
+    private StorageReference storageRef;
+
+    // Image picker launcher
     private final ActivityResultLauncher<String> pickImageLauncher =
             registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
                 if (uri != null) {
                     selectedImageUri = uri;
-                    imagePreview.setImageURI(uri); // Display image in ImageView
+                    imagePreview.setImageURI(uri);
                 }
             });
 
@@ -39,6 +46,7 @@ public class AddItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_menu_item);
 
+        // Initialize views
         imagePreview = findViewById(R.id.imagePreview);
         etName = findViewById(R.id.etName);
         etDescription = findViewById(R.id.etDescription);
@@ -49,15 +57,20 @@ public class AddItemActivity extends AppCompatActivity {
         cbInStock = findViewById(R.id.cbInStock);
         btnAddItem = findViewById(R.id.btnAddItem);
 
-        // Setup Spinner with dummy data
+        // Firebase references
+        databaseRef = FirebaseDatabase.getInstance().getReference("menuitems");
+        storageRef = FirebaseStorage.getInstance().getReference("menuitem_images");
+
+        // Spinner setup
         String[] categories = {"Pizza", "Burger", "Drinks", "Dessert"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, categories);
         spinnerCategory.setAdapter(adapter);
 
-        // When ImageView is clicked, open gallery picker
+        // Pick image
         imagePreview.setOnClickListener(v -> pickImageLauncher.launch("image/*"));
 
+        // Add item
         btnAddItem.setOnClickListener(v -> handleAddItem());
     }
 
@@ -75,17 +88,75 @@ public class AddItemActivity extends AppCompatActivity {
             return;
         }
 
-        // Show preview of collected data
-        Toast.makeText(this,
-                "Item Added: " + name +
-                        "\nCategory: " + category +
-                        "\nSmall: " + smallPrice +
-                        "\nMedium: " + mediumPrice +
-                        "\nLarge: " + largePrice +
-                        "\nIn Stock: " + (inStock ? "Yes" : "No") +
-                        (selectedImageUri != null ? "\nImage Selected ✅" : "\nNo Image Selected"),
-                Toast.LENGTH_LONG).show();
+        // Upload image and save item
+        uploadImageAndSaveItem(name, description, category,
+                smallPrice, mediumPrice, largePrice, inStock);
+    }
 
-        // TODO: Send this data and selectedImageUri to backend or database
+    private void uploadImageAndSaveItem(String name, String description, String category,
+                                        String smallPrice, String mediumPrice, String largePrice,
+                                        boolean inStock) {
+
+        if (selectedImageUri != null) {
+            // Create unique filename
+            StorageReference imageRef = storageRef.child(System.currentTimeMillis() + ".jpg");
+
+            imageRef.putFile(selectedImageUri)
+                    .addOnSuccessListener(taskSnapshot -> imageRef.getDownloadUrl()
+                            .addOnSuccessListener(uri -> {
+                                String imageUrl = uri.toString();
+                                saveMenuItemToDatabase(name, description, category,
+                                        smallPrice, mediumPrice, largePrice, inStock, imageUrl);
+                            }))
+                    .addOnFailureListener(e ->
+                            Toast.makeText(this, "Image upload failed", Toast.LENGTH_SHORT).show());
+        } else {
+            // Save without image
+            saveMenuItemToDatabase(name, description, category,
+                    smallPrice, mediumPrice, largePrice, inStock, null);
+        }
+    }
+
+    private void saveMenuItemToDatabase(String name, String description, String category,
+                                        String smallPrice, String mediumPrice, String largePrice,
+                                        boolean inStock, String imageUrl) {
+
+        String key = databaseRef.push().getKey(); // unique key
+        MenuItem menuItem = new MenuItem(name, description, category,
+                smallPrice, mediumPrice, largePrice, inStock, imageUrl);
+
+        if (key != null) {
+            databaseRef.child(key).setValue(menuItem)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(this, "Menu item added successfully ✅", Toast.LENGTH_SHORT).show();
+                        finish(); // close activity
+                    })
+                    .addOnFailureListener(e ->
+                            Toast.makeText(this, "Failed to add item ❌", Toast.LENGTH_SHORT).show());
+        }
+    }
+
+    // 🔹 Model class inside AddItemActivity
+    public static class MenuItem {
+        public String name, description, category;
+        public String smallPrice, mediumPrice, largePrice;
+        public boolean inStock;
+        public String imageUrl;
+
+        // Default constructor required for Firebase
+        public MenuItem() {}
+
+        public MenuItem(String name, String description, String category,
+                        String smallPrice, String mediumPrice, String largePrice,
+                        boolean inStock, String imageUrl) {
+            this.name = name;
+            this.description = description;
+            this.category = category;
+            this.smallPrice = smallPrice;
+            this.mediumPrice = mediumPrice;
+            this.largePrice = largePrice;
+            this.inStock = inStock;
+            this.imageUrl = imageUrl;
+        }
     }
 }
