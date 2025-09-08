@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:spacing="8dp">
+
+        <!-- Image Picker -->
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="Item Image"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Name Field -->
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Item Name"
+            android:inputType="textCapWords"/>
+
+        <!-- Description Field -->
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:gravity="top"/>
+
+        <!-- Category Dropdown -->
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Price Fields -->
+        <EditText
+            android:id="@+id/etSmallPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Small Price"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/etMediumPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Medium Price"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/etLargePrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Large Price"
+            android:inputType="numberDecimal"/>
+
+        <!-- Stock Checkbox -->
+        <CheckBox
+            android:id="@+id/cbInStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stock Available"
+            android:checked="true"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Add Button -->
+        <Button
+            android:id="@+id/btnAddItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Menu Item"
+            android:layout_marginTop="12dp"/>
+    </LinearLayout>
+</ScrollView>
