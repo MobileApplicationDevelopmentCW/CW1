@@ -82,28 +82,21 @@ public class ProfileFragment extends Fragment {
         btnSave = view.findViewById(R.id.btnSave);
         progressBarSave = view.findViewById(R.id.progressBarSave);
 
-        // Save original KeyListeners
         etNameKeyListener = etName.getKeyListener();
         etPhoneKeyListener = etPhone.getKeyListener();
 
-        // Make Name & Phone read-only initially
         etName.setKeyListener(null);
         etName.setCursorVisible(false);
         etPhone.setKeyListener(null);
         etPhone.setCursorVisible(false);
 
-        // Tap-to-edit
         etName.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                enableEditText(etName, etNameKeyListener);
-            }
+            if (event.getAction() == MotionEvent.ACTION_DOWN) enableEditText(etName, etNameKeyListener);
             return false;
         });
 
         etPhone.setOnTouchListener((v, event) -> {
-            if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                enableEditText(etPhone, etPhoneKeyListener);
-            }
+            if (event.getAction() == MotionEvent.ACTION_DOWN) enableEditText(etPhone, etPhoneKeyListener);
             return false;
         });
 
@@ -119,9 +112,7 @@ public class ProfileFragment extends Fragment {
         editText.setCursorVisible(true);
         editText.requestFocus();
         editText.setSelection(editText.getText().length());
-
-        InputMethodManager imm = (InputMethodManager) requireActivity()
-                .getSystemService(Activity.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager) requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
     }
 
@@ -131,7 +122,6 @@ public class ProfileFragment extends Fragment {
         setupUserListener();
     }
 
-    // ------------------- LIVE USER DATA LISTENER -------------------
     private void setupUserListener() {
         if (currentUser == null) return;
 
@@ -150,21 +140,17 @@ public class ProfileFragment extends Fragment {
                     profileImageUrl = snapshot.child("profileImageUrl").getValue(String.class);
                 }
 
-                // If DB didn’t have values, fallback to FirebaseAuth user
-                if ((name == null || name.isEmpty()) && currentUser.getDisplayName() != null) {
+                if ((name == null || name.isEmpty()) && currentUser.getDisplayName() != null)
                     name = currentUser.getDisplayName();
-                }
-                if ((email == null || email.isEmpty()) && currentUser.getEmail() != null) {
+                if ((email == null || email.isEmpty()) && currentUser.getEmail() != null)
                     email = currentUser.getEmail();
-                }
 
                 etName.setText(name != null ? name : "");
                 etEmail.setText(email != null ? email : "");
                 etPhone.setText(phone != null ? phone : "");
 
-                if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
+                if (profileImageUrl != null && !profileImageUrl.isEmpty())
                     Glide.with(ProfileFragment.this).load(profileImageUrl).into(imgProfile);
-                }
             }
 
             @Override
@@ -205,58 +191,40 @@ public class ProfileFragment extends Fragment {
         btnSave.setText("");
         btnSave.setEnabled(false);
 
-        dbRef.get().addOnSuccessListener(snapshot -> {
-            if (!snapshot.exists()) { hideProgressBar(); return; }
+        Map<String, Object> updates = new HashMap<>();
+        updates.put("name", newName);
+        updates.put("phone", newPhone);
 
-            String currentName = snapshot.child("name").getValue(String.class);
-            String currentPhone = snapshot.child("phone").getValue(String.class);
+        if (imageUri != null) {
+            StorageReference fileRef = storageRef.child(currentUser.getUid() + ".jpg");
+            fileRef.putFile(imageUri)
+                    .addOnSuccessListener(taskSnapshot ->
+                            fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                                updates.put("profileImageUrl", uri.toString());
+                                updateDatabase(updates);
+                            }).addOnFailureListener(this::handleUploadFailure)
+                    ).addOnFailureListener(this::handleUploadFailure);
+        } else {
+            updateDatabase(updates);
+        }
+    }
 
-            Map<String, Object> updates = new HashMap<>();
-            boolean hasChanges = false;
-
-            if (!newName.equals(currentName)) { updates.put("name", newName); hasChanges = true; }
-            if (!newPhone.equals(currentPhone)) { updates.put("phone", newPhone); hasChanges = true; }
-
-            if (imageUri != null) {
-                hasChanges = true;
-                StorageReference fileRef = storageRef.child(currentUser.getUid() + ".jpg");
-
-                fileRef.putFile(imageUri)
-                        .addOnSuccessListener(taskSnapshot ->
-                                fileRef.getDownloadUrl().addOnSuccessListener(uri -> {
-                                    updates.put("profileImageUrl", uri.toString());
-                                    dbRef.updateChildren(updates).addOnSuccessListener(aVoid -> {
-                                        Toast.makeText(getActivity(), "Profile updated", Toast.LENGTH_SHORT).show();
-                                        imageUri = null;
-                                        hideProgressBar();
-                                    }).addOnFailureListener(this::handleUploadFailure);
-                                }).addOnFailureListener(this::handleUploadFailure)
-                        ).addOnFailureListener(this::handleUploadFailure);
-
-            } else if (hasChanges) {
-                dbRef.updateChildren(updates).addOnSuccessListener(aVoid -> {
+    private void updateDatabase(Map<String, Object> updates) {
+        dbRef.updateChildren(updates)
+                .addOnSuccessListener(aVoid -> {
                     Toast.makeText(getActivity(), "Profile updated", Toast.LENGTH_SHORT).show();
+                    imageUri = null;
                     hideProgressBar();
-                }).addOnFailureListener(this::handleUploadFailure);
-            } else {
-                Toast.makeText(getActivity(), "No changes to update", Toast.LENGTH_SHORT).show();
-                hideProgressBar();
-            }
-        }).addOnFailureListener(this::handleUploadFailure);
+                })
+                .addOnFailureListener(this::handleUploadFailure);
     }
 
     private void handleUploadFailure(Exception e) {
         hideProgressBar();
         Toast.makeText(getActivity(),
-                "Profile upload failed. Please try again.\nError: " + e.getMessage(),
+                "Failed to update profile. Please try again.\nError: " + e.getMessage(),
                 Toast.LENGTH_LONG).show();
-
         imageUri = null;
-
-        requireActivity().getSupportFragmentManager().beginTransaction()
-                .detach(this)
-                .attach(this)
-                .commit();
     }
 
     private void hideProgressBar() {
