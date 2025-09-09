@@ -6,7 +6,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#090909"
     android:fitsSystemWindows="true"
     tools:context=".LoginScreen">
 
@@ -34,7 +34,7 @@
         android:drawablePadding="10dp"
         android:background="@drawable/edittext_bg"
         android:paddingLeft="12dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textColorHint="#8B8787"
         android:inputType="textEmailAddress"
         app:layout_constraintTop_toBottomOf="@id/imgLogo"
@@ -55,7 +55,7 @@
         android:drawablePadding="10dp"
         android:background="@drawable/edittext_bg"
         android:paddingLeft="12dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textColorHint="#8B8787"
         android:inputType="textPassword"
         app:layout_constraintTop_toBottomOf="@id/etEmail"
@@ -105,7 +105,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Or continue with"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="11sp"
         app:layout_constraintTop_toBottomOf="@id/btnLoginLayout"
         app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +122,7 @@
         android:textSize="12sp"
         android:textStyle="bold"
         android:textColor="@color/white"
-        app:backgroundTint="@color/black"
+        app:backgroundTint="#1B1B1B"
         app:cornerRadius="100dp"
         app:icon="@drawable/googlelogo"
         app:iconGravity="textStart"
@@ -140,7 +140,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Forget Password?"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="11sp"
         app:layout_constraintTop_toBottomOf="@id/btnGoogle"
         app:layout_constraintStart_toStartOf="parent"
@@ -163,7 +163,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Don't have an account? "
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="12sp"/>
 
         <TextView

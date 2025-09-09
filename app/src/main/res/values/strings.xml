@@ -3,4 +3,13 @@
     <string name="default_web_client_id">724939020543-6e4i76fd7161po37tuu2p6jprukrvk3h.apps.googleusercontent.com</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cart">Cart</string>
+    <!-- Content descriptions for cart buttons -->
+    <string name="cd_remove_item">Remove item</string>
+    <string name="cd_decrease_quantity">Decrease quantity</string>
+    <string name="cd_increase_quantity">Increase quantity</string>
+
+    <!-- Optional UI text -->
+    <string name="cart_title">My Cart</string>
+    <string name="proceed">Proceed</string>
 </resources>
