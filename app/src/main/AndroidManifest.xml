@@ -35,10 +35,30 @@
 
         <activity android:name=".InfoScreen" android:exported="false" />
         <activity android:name=".ActivityDrawer" android:exported="false" />
-        <activity android:name=".MainActivity" android:exported="false" />
-        <activity android:name=".ForgotPassword" android:exported="false" />
-        <activity android:name=".CreateAccount" android:exported="false" />
-        <activity android:name=".LoginScreen" android:exported="false" />
+
+        <!-- MainActivity updated with adjustPan -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
+            android:name=".ForgotPassword"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <!-- CreateAccount with keyboard handling -->
+        <activity
+            android:name=".CreateAccount"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <!-- LoginScreen with keyboard handling -->
+        <activity
+            android:name=".LoginScreen"
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
         <activity android:name=".AdminActivity" android:exported="false" />
         <activity android:name=".AddItemActivity" android:exported="false" />
     </application>

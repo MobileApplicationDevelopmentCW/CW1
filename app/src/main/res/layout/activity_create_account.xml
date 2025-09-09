@@ -1,223 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/white"
-    android:clipToPadding="false"
+    android:background="#090909"
+    android:paddingHorizontal="16dp"
     android:paddingBottom="10dp"
     tools:context=".CreateAccount">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <!-- Top Guideline -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/topGuideline"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp">
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
 
-        <!-- Top Guideline -->
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/topGuideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.05" />
+    <!-- Title -->
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Create Account"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/topGuideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/txtTitle"
-            android:layout_width="0dp"
+    <!-- Lottie Animation -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/main_animation_view1"
+        android:layout_width="407dp"
+        android:layout_height="177dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintDimensionRatio="16:7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTitle"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/pizzaprocess" />
+
+    <!-- Name -->
+    <EditText
+        android:id="@+id/etFullName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Name"
+        android:textSize="12sp"
+        android:drawableStart="@drawable/user1"
+        android:drawableTint="#8B8787"
+        android:drawablePadding="6dp"
+        android:background="@drawable/edittext_bg"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="#8B8787"
+        app:layout_constraintTop_toBottomOf="@id/main_animation_view1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:singleLine="true"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Email -->
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:textSize="12sp"
+        android:drawableStart="@drawable/email"
+        android:drawableTint="#8B8787"
+        android:drawablePadding="6dp"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/edittext_bg"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="#8B8787"
+        app:layout_constraintTop_toBottomOf="@id/etFullName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:singleLine="true"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Password -->
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:textSize="12sp"
+        android:drawableStart="@drawable/lock"
+        android:drawableTint="#8B8787"
+        android:drawablePadding="6dp"
+        android:inputType="textPassword"
+        android:background="@drawable/edittext_bg"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="#8B8787"
+        app:layout_constraintTop_toBottomOf="@id/etEmail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:singleLine="true"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Confirm Password -->
+    <EditText
+        android:id="@+id/etConfirmPassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Confirm Password"
+        android:textSize="12sp"
+        android:inputType="textPassword"
+        android:background="@drawable/edittext_bg"
+        android:padding="11dp"
+        android:textColor="@color/white"
+        android:textColorHint="#8B8787"
+        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:singleLine="true"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Phone Number -->
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number"
+        android:textSize="12sp"
+        android:drawableStart="@drawable/phone"
+        android:drawableTint="#8B8787"
+        android:drawablePadding="6dp"
+        android:inputType="phone"
+        android:background="@drawable/edittext_bg"
+        android:padding="10dp"
+        android:textColor="@color/white"
+        android:textColorHint="#8B8787"
+        app:layout_constraintTop_toBottomOf="@id/etConfirmPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:singleLine="true"
+        android:layout_marginTop="12dp"/>
+
+    <!-- Create Account Button + ProgressBar -->
+    <FrameLayout
+        android:id="@+id/buttonFrame"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/etPhone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="18dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCreateAccount"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="52dp"
+            android:backgroundTint="@color/red"
             android:text="Create Account"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/topGuideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <!-- Lottie Animation -->
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/main_animation_view1"
-            android:layout_width="407dp"
-            android:layout_height="177dp"
-            android:layout_marginTop="12dp"
-            app:layout_constraintDimensionRatio="16:7"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtTitle"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/pizzaprocess" />
-
-        <!-- Name -->
-        <EditText
-            android:id="@+id/etFullName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Name"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
             android:textSize="12sp"
-            android:drawableStart="@drawable/user1"
-            android:drawableTint="#8B8787"
-            android:drawablePadding="6dp"
-            android:background="@drawable/edittext_bg"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="#8B8787"
-            app:layout_constraintTop_toBottomOf="@id/main_animation_view1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:singleLine="true"
-            android:layout_marginTop="12dp"/>
+            app:cornerRadius="50dp"/>
 
-        <!-- Email -->
-        <EditText
-            android:id="@+id/etEmail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:textSize="12sp"
-            android:drawableStart="@drawable/email"
-            android:drawableTint="#8B8787"
-            android:drawablePadding="6dp"
-            android:inputType="textEmailAddress"
-            android:background="@drawable/edittext_bg"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="#8B8787"
-            app:layout_constraintTop_toBottomOf="@id/etFullName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:singleLine="true"
-            android:layout_marginTop="12dp"/>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleSmall"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:visibility="gone"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/white"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 
-        <!-- Password -->
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Password"
-            android:textSize="12sp"
-            android:drawableStart="@drawable/lock"
-            android:drawableTint="#8B8787"
-            android:drawablePadding="6dp"
-            android:inputType="textPassword"
-            android:background="@drawable/edittext_bg"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="#8B8787"
-            app:layout_constraintTop_toBottomOf="@id/etEmail"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:singleLine="true"
-            android:layout_marginTop="12dp"/>
+    <!-- Sign In Layout -->
+    <LinearLayout
+        android:id="@+id/signInLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/buttonFrame"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp">
 
-        <!-- Confirm Password -->
-        <EditText
-            android:id="@+id/etConfirmPassword"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Confirm Password"
-            android:textSize="12sp"
-            android:inputType="textPassword"
-            android:background="@drawable/edittext_bg"
-            android:padding="12dp"
-            android:textColor="@color/black"
-            android:textColorHint="#8B8787"
-            app:layout_constraintTop_toBottomOf="@id/etPassword"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:singleLine="true"
-            android:layout_marginTop="12dp"/>
-
-        <!-- Phone Number -->
-        <EditText
-            android:id="@+id/etPhone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Phone Number"
-            android:textSize="12sp"
-            android:drawableStart="@drawable/phone"
-            android:drawableTint="#8B8787"
-            android:drawablePadding="6dp"
-            android:inputType="phone"
-            android:background="@drawable/edittext_bg"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textColorHint="#8B8787"
-            app:layout_constraintTop_toBottomOf="@id/etConfirmPassword"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:singleLine="true"
-            android:layout_marginTop="12dp"/>
-
-        <!-- Create Account Button + ProgressBar -->
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/etPhone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="18dp">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCreateAccount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="52dp"
-                android:backgroundTint="@color/red"
-                android:text="Create Account"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                app:cornerRadius="50dp" />
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleSmall"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:visibility="gone"
-                android:indeterminate="true"
-                android:indeterminateTint="@color/white"
-                android:layout_gravity="center"/>
-        </FrameLayout>
-
-        <!-- Sign In Layout -->
-        <LinearLayout
-            android:id="@+id/signInLayout"
+        <TextView
+            android:id="@+id/txtAlready"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintTop_toBottomOf="@id/btnCreateAccount"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp"
-            android:layout_marginBottom="16dp">
+            android:text="Already have an account? "
+            android:textColor="@color/white"
+            android:textSize="12sp"/>
 
-            <TextView
-                android:id="@+id/txtAlready"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Already have an account? "
-                android:textColor="@color/black"
-                android:textSize="12sp"/>
+        <TextView
+            android:id="@+id/txtSignin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign In"
+            android:textColor="@color/red"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"/>
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/txtSignin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sign In"
-                android:textColor="@color/red"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"/>
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
