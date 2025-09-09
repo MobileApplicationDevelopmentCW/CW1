@@ -1,143 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="6dp"
-    android:foreground="?attr/selectableItemBackground">
+    app:cardCornerRadius="18dp"
+    app:cardElevation="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="14dp">
 
         <!-- Pizza Image -->
         <ImageView
             android:id="@+id/pizzaImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
             android:scaleType="centerCrop"
             android:src="@drawable/margherita"
-            android:contentDescription="Pizza Image"
             android:background="@drawable/image_bg"
-            android:clipToOutline="true" />
+            android:clipToOutline="true"
+            android:contentDescription="Pizza Image"
+            android:layout_marginBottom="8dp"/>
 
-        <!-- Details Section -->
+        <!-- Pizza Name -->
+        <TextView
+            android:id="@+id/pizzaName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Margherita"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:gravity="center"/>
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/pizzaDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Classic cheese, tomato pizza"
+            android:textSize="14sp"
+            android:textColor="#777"
+            android:gravity="center"
+            android:layout_marginTop="2dp"/>
+
+        <!-- Size and Size Selector (vertical) -->
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="12dp"
-            android:layout_weight="1">
+            android:gravity="center"
+            android:layout_marginTop="7dp">
 
             <TextView
-                android:id="@+id/pizzaName"
+                android:id="@+id/sizeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Margherita"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/pizzaDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Classic cheese, tomato pizza"
-                android:textSize="14sp"
-                android:textColor="#666666"
-                android:layout_marginTop="4dp" />
-
-            <!-- Size Selection
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal"> -->
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Size: "
+                android:text="Size:"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:gravity="center"/>
 
             <RadioGroup
                 android:id="@+id/sizeRadioGroup"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginStart="8dp"
-                android:orientation="horizontal">
-
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="4dp"
+                android:gravity="center">
                 <RadioButton
                     android:id="@+id/radioSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/warm_orange"
-                    android:padding="4dp"
                     android:text="S"
                     android:textSize="12sp" />
-
                 <RadioButton
                     android:id="@+id/radioMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/warm_orange"
                     android:checked="true"
-                    android:padding="4dp"
                     android:text="M"
                     android:textSize="12sp" />
-
                 <RadioButton
                     android:id="@+id/radioLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:buttonTint="@color/warm_orange"
-                    android:padding="4dp"
                     android:text="L"
                     android:textSize="12sp" />
-
             </RadioGroup>
-
-            <!--</LinearLayout> -->
-
-            <!--Price with size indicator -->
-            <TextView
-                android:id="@+id/pizzaPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rs. 1,500"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/dark_green"
-                android:layout_marginTop="6dp" />
-
-            <!--Size price hint -->
-            <TextView
-                android:id="@+id/sizePriceHint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="(Medium)"
-                android:textSize="12sp"
-                android:textColor="#888888"
-                android:layout_marginTop="2dp" />
-
         </LinearLayout>
 
-        <!-- Add to Cart Button -->
-        <Button
-            android:id="@+id/addToCartBtn"
+
+        <!-- Price -->
+        <TextView
+            android:id="@+id/pizzaPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/warm_orange"
-            android:layout_gravity="center_vertical"/>
+            android:text="Rs. 1,500"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/dark_green"
+            android:gravity="center"
+            android:layout_marginTop="8dp"/>
 
+        <!-- Size-related Hint/Subtitle -->
+        <TextView
+            android:id="@+id/sizePriceHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(Medium)"
+            android:textSize="12sp"
+            android:textColor="#888888"
+            android:gravity="center"
+            android:layout_marginTop="2dp"/>
+
+        <!-- Add to Cart Button (circular style) -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:gravity="end">
+
+            <ImageButton
+                android:id="@+id/addToCartBtn"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:backgroundTint="@color/warm_orange"
+                android:src="@drawable/ic_add"
+                android:background="@drawable/rounded_button_bg"
+                android:contentDescription="Add to Cart"
+                app:tint="@color/white" />
+        </FrameLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

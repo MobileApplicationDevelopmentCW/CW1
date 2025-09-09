@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
     <!-- Internet is required for Firebase -->
-    <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- Permissions for picking images from gallery -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- Permissions for picking images from gallery -->
     <!-- Android 13+ -->
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-    <!-- Android 12 and below -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" /> <!-- Android 12 and below -->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
 
     <application
@@ -22,25 +19,43 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PizzaMania"
         tools:targetApi="31">
-
+        <activity
+            android:name=".DetailActivity"
+            android:exported="false" />
         <!-- SplashScreen is now the launcher -->
         <activity
             android:name=".SplashScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".InfoScreen" android:exported="false" />
-        <activity android:name=".ActivityDrawer" android:exported="false" />
-        <activity android:name=".MainActivity" android:exported="false" />
-        <activity android:name=".ForgotPassword" android:exported="false" />
-        <activity android:name=".CreateAccount" android:exported="false" />
-        <activity android:name=".LoginScreen" android:exported="false" />
-        <activity android:name=".AdminActivity" android:exported="false" />
-        <activity android:name=".AddItemActivity" android:exported="false" />
+        <activity
+            android:name=".InfoScreen"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityDrawer"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPassword"
+            android:exported="false" />
+        <activity
+            android:name=".CreateAccount"
+            android:exported="false" />
+        <activity
+            android:name=".LoginScreen"
+            android:exported="false" />
+        <activity
+            android:name=".AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddItemActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
