@@ -5,6 +5,7 @@
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#090909"
     android:fitsSystemWindows="true">
 
     <!-- Main content (fragments load here) -->
@@ -18,6 +19,8 @@
     <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigationView"
+        app:itemTextColor="@color/white"
+        android:background="#090909"
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"

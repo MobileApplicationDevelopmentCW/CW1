@@ -3,31 +3,31 @@
 
     <item
         android:icon="@drawable/favourite"
-        android:iconTint="@color/black"
+        android:iconTint="@color/white"
         android:id="@+id/navFav"
-        android:title="Favourites"/>
+        android:title="Favourites" />
 
     <item
         android:icon="@drawable/order_history"
-        android:iconTint="@color/black"
+        android:iconTint="@color/white"
         android:id="@+id/navOrderhistory"
         android:title="Order History"/>
 
     <item
         android:icon="@drawable/policy"
-        android:iconTint="@color/black"
+        android:iconTint="@color/white"
         android:id="@+id/navPolicies"
         android:title="Policies"/>
 
     <item
         android:icon="@drawable/logout"
-        android:iconTint="@color/black"
+        android:iconTint="@color/white"
         android:id="@+id/navLogout"
         android:title="Logout"/>
 
     <item
         android:icon="@drawable/exit"
-        android:iconTint="@color/black"
+        android:iconTint="@color/white"
         android:id="@+id/navExit"
         android:title="Exit"/>
 
