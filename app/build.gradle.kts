@@ -63,4 +63,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+
+    //for profile pic circluar
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+
 }

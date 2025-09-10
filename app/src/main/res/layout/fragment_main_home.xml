@@ -115,7 +115,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@color/black"
-                android:text="මේක හුට්ටො මේන් කොන්ටන්ට් එක " />
+                android:text="Home" />
+
+
 
 
 
