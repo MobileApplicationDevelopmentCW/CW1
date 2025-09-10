@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioButton;
@@ -18,26 +18,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 import my.foodon.pizzamania.R;
-import my.foodon.pizzamania.models.MenuItem;
 import my.foodon.pizzamania.models.Pizza;
 
 public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder> {
 
     private Context context;
-    private List<Pizza> pizzaList;       // original list
+    private List<Pizza> pizzaList;       // master list
     private List<Pizza> filteredList;    // filtered list
     private OnPizzaClickListener listener;
     private DecimalFormat priceFormat;
-
-
 
     public PizzaAdapter(Context context, List<Pizza> pizzaList, OnPizzaClickListener listener) {
         this.context = context;
         this.pizzaList = pizzaList;
         this.listener = listener;
         this.priceFormat = new DecimalFormat("#,##0");
-
-        //initialize filteredList with all pizzas first
+        // Initialize filteredList
         this.filteredList = new ArrayList<>(pizzaList);
     }
 
@@ -50,18 +46,15 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
 
     @Override
     public void onBindViewHolder(@NonNull PizzaViewHolder holder, int position) {
-        //bind filtered list, not original
         Pizza pizza = filteredList.get(position);
 
         holder.pizzaName.setText(pizza.getName());
         holder.pizzaDescription.setText(pizza.getDescription());
         holder.pizzaImage.setImageResource(pizza.getImageResource());
 
-        // Default Medium
         holder.radioMedium.setChecked(true);
         updatePriceDisplay(holder, pizza, Pizza.PizzaSize.MEDIUM);
 
-        // Size change
         holder.sizeRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             Pizza.PizzaSize selectedSize = Pizza.PizzaSize.MEDIUM;
             if (checkedId == R.id.radioSmall) {
@@ -72,7 +65,6 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
             updatePriceDisplay(holder, pizza, selectedSize);
         });
 
-        // Add to cart
         holder.addToCartBtn.setOnClickListener(v -> {
             if (listener != null) {
                 Pizza.PizzaSize selectedSize = getSelectedSize(holder.sizeRadioGroup);
@@ -83,15 +75,29 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
 
     @Override
     public int getItemCount() {
-        // use filteredList size
         return filteredList != null ? filteredList.size() : 0;
     }
 
-    // filtering method
+    // Category filtering
+    public void filterByCategory(String category) {
+        filteredList.clear();
+        if (category.equals("All")) {
+            filteredList.addAll(pizzaList);
+        } else {
+            for (Pizza pizza : pizzaList) {
+                if (pizza.getCategory().equalsIgnoreCase(category)) {
+                    filteredList.add(pizza);
+                }
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    // Optional: search filtering
     public void filter(String query) {
         filteredList.clear();
         if (query == null || query.trim().isEmpty()) {
-            filteredList.addAll(pizzaList); // reset
+            filteredList.addAll(pizzaList);
         } else {
             String lower = query.toLowerCase();
             for (Pizza pizza : pizzaList) {
@@ -104,7 +110,6 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         notifyDataSetChanged();
     }
 
-    // Helpers
     private void updatePriceDisplay(PizzaViewHolder holder, Pizza pizza, Pizza.PizzaSize size) {
         double price = pizza.getPrice(size);
         holder.pizzaPrice.setText("LKR " + priceFormat.format(price));
@@ -118,13 +123,12 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         return Pizza.PizzaSize.MEDIUM;
     }
 
-    // ViewHolder
     public static class PizzaViewHolder extends RecyclerView.ViewHolder {
         ImageView pizzaImage;
         TextView pizzaName, pizzaDescription, pizzaPrice, sizePriceHint;
         RadioGroup sizeRadioGroup;
         RadioButton radioSmall, radioMedium, radioLarge;
-        Button addToCartBtn;
+        ImageButton addToCartBtn;
 
         public PizzaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -141,9 +145,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         }
     }
 
-    // Listener
     public interface OnPizzaClickListener {
         void onAddToCart(Pizza pizza, Pizza.PizzaSize size);
     }
 }
-

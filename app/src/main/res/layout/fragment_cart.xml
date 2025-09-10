@@ -2,82 +2,78 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true">
 
-    <!-- Top Guideline for responsive spacing -->
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/topGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="10dp" />
-
-    <!-- Title -->
+    <!-- Top Title -->
     <TextView
         android:id="@+id/cartTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="🛒 Your Cart"
+        android:text="My Cart"
         android:textSize="22sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:gravity="center"
-        android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/topGuideline"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Cart List -->
+    <!-- Cart list area -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:padding="8dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="8dp"
         android:clipToPadding="false"
         android:scrollbars="vertical"
         app:layout_constraintTop_toBottomOf="@id/cartTitle"
         app:layout_constraintBottom_toTopOf="@id/bottomSection"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/cart_item"/>
 
-    <!-- Bottom Section -->
+    <!-- Bottom total + checkout -->
     <LinearLayout
         android:id="@+id/bottomSection"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="12dp"
-        android:background="#F5F5F5"
-        android:elevation="4dp"
+        android:padding="16dp"
+        android:background="@drawable/cream_top_corner_bg"
+        android:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
-            android:id="@+id/totalPrice"
+            android:id="@+id/totalTxt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Total: Rs. 0"
+            android:text="Rs 0.00"
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:gravity="start"
-            android:layout_gravity="center_vertical"/>
+            android:gravity="start"/>
 
         <Button
-            android:id="@+id/btnCheckout"
+            android:id="@+id/button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Checkout"
+            android:layout_height="48dp"
+            android:minWidth="120dp"
+            android:text="Proceed"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:backgroundTint="@color/black"
-            android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:layout_gravity="center_vertical"/>
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
