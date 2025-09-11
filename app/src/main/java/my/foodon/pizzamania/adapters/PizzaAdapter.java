@@ -1,17 +1,20 @@
 package my.foodon.pizzamania.adapters;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -22,19 +25,23 @@ import my.foodon.pizzamania.models.Pizza;
 
 public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHolder> {
 
-    private Context context;
-    private List<Pizza> pizzaList;       // master list
-    private List<Pizza> filteredList;    // filtered list
-    private OnPizzaClickListener listener;
-    private DecimalFormat priceFormat;
+    private final Context context;
+    private final List<Pizza> pizzaList;    // master list (all pizzas from Firebase)
+    private final List<Pizza> filteredList; // currently displayed (after category/search)
+    private final OnPizzaClickListener listener;
+    private final DecimalFormat priceFormat;
 
     public PizzaAdapter(Context context, List<Pizza> pizzaList, OnPizzaClickListener listener) {
         this.context = context;
         this.pizzaList = pizzaList;
         this.listener = listener;
-        this.priceFormat = new DecimalFormat("#,##0");
-        // Initialize filteredList
+        this.priceFormat = new DecimalFormat("#,##0.00");
         this.filteredList = new ArrayList<>(pizzaList);
+    }
+
+    // Call this after the backing pizzaList has changed (e.g., Firebase listener updated it)
+    public void refreshKeepingFilter(String currentCategory) {
+        filterByCategory(currentCategory);
     }
 
     @NonNull
@@ -50,11 +57,26 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
 
         holder.pizzaName.setText(pizza.getName());
         holder.pizzaDescription.setText(pizza.getDescription());
-        holder.pizzaImage.setImageResource(pizza.getImageResource());
 
+        // Image: prefer URL from Firebase; fallback to local resource or placeholder
+        if (!TextUtils.isEmpty(pizza.getImageUrl())) {
+            Glide.with(context)
+                    .load(pizza.getImageUrl())
+                    .placeholder(R.drawable.ic_pizza_placeholder)
+                    .error(R.drawable.ic_pizza_placeholder)
+                    .into(holder.pizzaImage); // Glide recommended for RecyclerView [5][6]
+        } else {
+            int res = pizza.getImageResource() != 0
+                    ? pizza.getImageResource()
+                    : R.drawable.ic_pizza_placeholder;
+            holder.pizzaImage.setImageResource(res);
+        }
+
+        // Default size Medium and price
         holder.radioMedium.setChecked(true);
         updatePriceDisplay(holder, pizza, Pizza.PizzaSize.MEDIUM);
 
+        // Size change
         holder.sizeRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             Pizza.PizzaSize selectedSize = Pizza.PizzaSize.MEDIUM;
             if (checkedId == R.id.radioSmall) {
@@ -65,6 +87,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
             updatePriceDisplay(holder, pizza, selectedSize);
         });
 
+        // Add to cart
         holder.addToCartBtn.setOnClickListener(v -> {
             if (listener != null) {
                 Pizza.PizzaSize selectedSize = getSelectedSize(holder.sizeRadioGroup);
@@ -81,11 +104,12 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
     // Category filtering
     public void filterByCategory(String category) {
         filteredList.clear();
-        if (category.equals("All")) {
+        if (TextUtils.isEmpty(category) || "All".equalsIgnoreCase(category)) {
             filteredList.addAll(pizzaList);
         } else {
             for (Pizza pizza : pizzaList) {
-                if (pizza.getCategory().equalsIgnoreCase(category)) {
+                if (pizza.getCategory() != null &&
+                        pizza.getCategory().equalsIgnoreCase(category)) {
                     filteredList.add(pizza);
                 }
             }
@@ -93,16 +117,17 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         notifyDataSetChanged();
     }
 
-    // Optional: search filtering
+    // Optional: search filtering by name/description
     public void filter(String query) {
         filteredList.clear();
-        if (query == null || query.trim().isEmpty()) {
+        if (TextUtils.isEmpty(query)) {
             filteredList.addAll(pizzaList);
         } else {
             String lower = query.toLowerCase();
             for (Pizza pizza : pizzaList) {
-                if (pizza.getName().toLowerCase().contains(lower) ||
-                        pizza.getDescription().toLowerCase().contains(lower)) {
+                String n = pizza.getName() != null ? pizza.getName().toLowerCase() : "";
+                String d = pizza.getDescription() != null ? pizza.getDescription().toLowerCase() : "";
+                if (n.contains(lower) || d.contains(lower)) {
                     filteredList.add(pizza);
                 }
             }
@@ -145,6 +170,7 @@ public class PizzaAdapter extends RecyclerView.Adapter<PizzaAdapter.PizzaViewHol
         }
     }
 
+    // Listener for “Add to Cart”
     public interface OnPizzaClickListener {
         void onAddToCart(Pizza pizza, Pizza.PizzaSize size);
     }

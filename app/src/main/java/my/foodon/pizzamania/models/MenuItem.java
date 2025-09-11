@@ -1,26 +1,29 @@
 package my.foodon.pizzamania.models;
 
 public class MenuItem {
-    public static final int TYPE_HEADER = 0;
-    public static final int TYPE_PIZZA = 1;
+    public String id;
+    public String name;
+    public String description;
+    public String category;
+    public double smallPrice;
+    public double mediumPrice;
+    public double largePrice;
+    public boolean inStock;
+    public String imageUrl;
 
-    private int type;
-    private String title;  // For headers
-    private Pizza pizza;   // For pizzas
+    public MenuItem() {}
 
-    // Constructor for header
-    public MenuItem(String title) {
-        this.type = TYPE_HEADER;
-        this.title = title;
+    public MenuItem(String id, String name, String description, String category,
+                    double smallPrice, double mediumPrice, double largePrice,
+                    boolean inStock, String imageUrl) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.smallPrice = smallPrice;
+        this.mediumPrice = mediumPrice;
+        this.largePrice = largePrice;
+        this.inStock = inStock;
+        this.imageUrl = imageUrl;
     }
-
-    // Constructor for pizza
-    public MenuItem(Pizza pizza) {
-        this.type = TYPE_PIZZA;
-        this.pizza = pizza;
-    }
-
-    public int getType() { return type; }
-    public String getTitle() { return title; }
-    public Pizza getPizza() { return pizza; }
 }

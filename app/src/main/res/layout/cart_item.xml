@@ -7,12 +7,16 @@
     app:cardCornerRadius="16dp"
     app:cardElevation="2dp"
     android:layout_margin="8dp"
+    android:clickable="false"
+    android:focusable="false"
     android:background="@android:color/white">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:padding="14dp">
+        android:padding="14dp"
+        android:clickable="false"
+        android:focusable="false" >
 
         <!-- Remove/X button (top right) -->
         <ImageButton
@@ -50,13 +54,15 @@
             android:layout_toStartOf="@id/quantityLayout"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            android:layout_marginEnd="16dp"
+            android:clickable="false"
+            android:focusable="false">
 
             <TextView
                 android:id="@+id/cartItemName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Cappuccino"
+                android:text="BBQ Pizza"
                 android:textSize="16sp"
                 android:textColor="#222222"
                 android:textStyle="bold"/>

@@ -12,19 +12,22 @@
         android:id="@+id/categoryBar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:paddingBottom="8dp"
+        android:overScrollMode="never">
 
-        <LinearLayout
+        <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"/>
+            app:singleSelection="true"
+            app:singleLine="true"
+            app:chipSpacing="8dp"/>
     </HorizontalScrollView>
+
 
     <!-- Pizza Grid -->
     <androidx.recyclerview.widget.RecyclerView

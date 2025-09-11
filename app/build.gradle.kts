@@ -48,6 +48,7 @@ dependencies {
     implementation(libs.credentials)
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.google.android.material:material:1.5.0")
+    implementation("com.google.android.material:material:1.12.0")
     implementation(libs.firebase.storage)
 
     // dependencies for glide

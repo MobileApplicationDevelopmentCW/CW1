@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +11,14 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +32,14 @@ public class MenuFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private PizzaAdapter adapter;
-    private List<Pizza> pizzaList = new ArrayList<>();
-    private LinearLayout chipGroup;
+    private final List<Pizza> pizzaList = new ArrayList<>();
+    private ChipGroup chipGroup;
 
-    private final String[] categories = {"All", "Classic", "Premium", "Vegetarian", "Chicken", "Drinks", "Sides"};
+    private DatabaseReference menuRef;
+    private String selectedCategory = "All";
+
+    // Categories shown as Material Filter Chips
+    private final String[] categories = {"All", "Pizza", "Burger", "Drinks", "Dessert"};
 
     @Nullable
     @Override
@@ -41,83 +51,87 @@ public class MenuFragment extends Fragment {
 
         chipGroup = view.findViewById(R.id.chipGroup);
         recyclerView = view.findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2)); // 2-column grid
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
 
-        loadPizzaData();
-        setupCategoryChips();
+        // Firebase DB ref -> /menuitems
+        menuRef = FirebaseDatabase.getInstance().getReference("menuitems"); // Realtime DB path [10]
+
+        setupMaterialChips();
 
         adapter = new PizzaAdapter(getContext(), pizzaList, (pizza, size) -> {
             String message = pizza.getName() + (size != null ? " (" + size.getDisplayName() + ")" : "") + " added to cart!";
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
             addToCart(pizza, size);
         });
-
         recyclerView.setAdapter(adapter);
 
-        // Show all by default
-        adapter.filterByCategory("All");
-        highlightFirstChip();
-
+        listenForMenuChanges(); // realtime updates [10][11]
         return view;
     }
 
-    private void highlightFirstChip() {
-        if (chipGroup.getChildCount() > 0) {
-            chipGroup.getChildAt(0).setAlpha(1f);
-            // All others faded
-            for (int i = 1; i < chipGroup.getChildCount(); i++) {
-                chipGroup.getChildAt(i).setAlpha(0.6f);
+    private void listenForMenuChanges() {
+        menuRef.addValueEventListener(new ValueEventListener() { // realtime listener [10][11]
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                pizzaList.clear();
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    Pizza p = child.getValue(Pizza.class); // requires no-arg ctor and getters/setters [10]
+                    if (p != null) {
+                        if (p.getId() == null || p.getId().isEmpty()) {
+                            p.setId(child.getKey());
+                        }
+                        if (!p.isInStock()) continue; // optional stock filter
+                        pizzaList.add(p);
+                    }
+                }
+                // Re-apply current category
+                adapter.filterByCategory(selectedCategory);
             }
-        }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(getContext(), "Failed to load menu: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    private void loadPizzaData() {
-        pizzaList.clear();
-
-        pizzaList.add(new Pizza("Margherita", "Classic cheese & tomato", 1200, R.drawable.margherita, "Classic"));
-        pizzaList.add(new Pizza("Pepperoni", "Spicy pepperoni with cheese", 1500, R.drawable.pepperoni, "Classic"));
-        pizzaList.add(new Pizza("Veggie Delight", "Fresh vegetables & herbs", 1300, R.drawable.veggie, "Vegetarian"));
-        pizzaList.add(new Pizza("BBQ Chicken", "Grilled chicken with BBQ sauce", 1800, R.drawable.bbq_chicken, "Chicken"));
-        pizzaList.add(new Pizza("Hawaiian", "Ham, pineapple & cheese", 1600, R.drawable.hawaiian, "Premium"));
-    }
-
-    private void setupCategoryChips() {
+    private void setupMaterialChips() {
         chipGroup.removeAllViews();
-        for (String cat : categories) {
-            Button chip = new Button(getContext());
-            chip.setText(cat);
-            chip.setBackgroundResource(R.drawable.chip_background); // Use a rounded bg shape
-            chip.setTextColor(getResources().getColor(R.color.red));
-            chip.setPadding(36, 10, 36, 10);
-            chip.setTextSize(15);
-            chip.setAllCaps(false);
+        chipGroup.setSingleSelection(true); // one active category at a time [3]
 
-            chip.setAlpha(cat.equals("All") ? 1f : 0.6f); // highlight "All" by default
+        for (String cat : categories) {
+            // Use Material 3 Filter Chip style
+            Chip chip = new Chip(requireContext(), null,
+                    com.google.android.material.R.style.Widget_Material3_Chip_Filter);
+            chip.setText(cat);
+            chip.setCheckable(true);
+            chip.setCheckedIconVisible(true);
+            chip.setEnsureMinTouchTargetSize(true); // 48dp touch target [8]
+            chip.setClickable(true);
+
+            if ("All".equalsIgnoreCase(cat)) {
+                chip.setChecked(true);
+            }
 
             chip.setOnClickListener(v -> {
+                selectedCategory = cat;
                 adapter.filterByCategory(cat);
-                highlightSelectedChip(chipGroup, chip);
             });
+
             chipGroup.addView(chip);
         }
-    }
 
-    private void highlightSelectedChip(LinearLayout chipGroup, Button selected) {
-        for (int i = 0; i < chipGroup.getChildCount(); i++) {
-            View v = chipGroup.getChildAt(i);
-            if (v instanceof Button) v.setAlpha(v == selected ? 1f : 0.6f);
-        }
+        // Optional: central listener if you prefer reacting to selection state changes
+        chipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            // not needed since each chip's click already filters
+        });
     }
 
     private void addToCart(Pizza pizza, Pizza.PizzaSize size) {
-        // TODO: Implement cart logic (e.g., database or Firebase)
         CartManager.getInstance().addToCart(pizza, size);
-        // You can show a Toast or update Cart badge here
     }
 
     public PizzaAdapter getAdapter() {
         return adapter;
     }
-
-
 }
