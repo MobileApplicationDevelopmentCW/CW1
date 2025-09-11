@@ -63,9 +63,14 @@ public class AddItemActivity extends AppCompatActivity {
 
         // Spinner setup
         String[] categories = {"Pizza", "Burger", "Drinks", "Dessert"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, categories);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.spinner_item, // selected view
+                categories
+        );
+        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         spinnerCategory.setAdapter(adapter);
+
 
         // Pick image
         imagePreview.setOnClickListener(v -> pickImageLauncher.launch("image/*"));
@@ -160,3 +165,4 @@ public class AddItemActivity extends AppCompatActivity {
         }
     }
 }
+

@@ -16,15 +16,14 @@
         android:orientation="vertical">
 
         <!-- Profile Picture -->
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgProfile"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/user1"
-            android:scaleType="centerCrop"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/userprofile"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/circle_bg"
-            android:padding="25dp" />
+            android:scaleType="centerCrop" />
+
 
         <!-- Change Picture Button -->
         <com.google.android.material.button.MaterialButton
@@ -41,6 +40,16 @@
             android:layout_marginTop="10dp" />
 
         <!-- Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="13dp"
+            android:textColor="#C3C3C3"
+            android:textSize="14sp"
+            android:layout_marginLeft="3dp"
+            android:text="Name"/>
+
         <EditText
             android:id="@+id/etName"
             android:layout_width="match_parent"
@@ -50,10 +59,20 @@
             android:textColor="@color/white"
             android:textSize="13sp"
             android:singleLine="true"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginBottom="18dp" />
+
 
         <!-- Email (read-only) -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="13dp"
+            android:textColor="#C3C3C3"
+            android:textSize="14sp"
+            android:layout_marginLeft="3dp"
+            android:text="Email"/>
+
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
@@ -68,6 +87,16 @@
             android:hint="Email" />
 
         <!-- Phone -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginBottom="13dp"
+            android:textColor="#C3C3C3"
+            android:textSize="14sp"
+            android:layout_marginLeft="3dp"
+            android:text="Password"/>
+
         <EditText
             android:id="@+id/etPhone"
             android:layout_width="match_parent"
