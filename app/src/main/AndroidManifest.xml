@@ -59,6 +59,8 @@
             android:exported="false"
             android:windowSoftInputMode="adjustPan|stateHidden" />
 
+        <activity android:name=".checkout.CheckoutActivity" />
+
         <activity android:name=".AdminActivity" android:exported="false" />
         <activity android:name=".AddItemActivity" android:exported="false" />
     </application>

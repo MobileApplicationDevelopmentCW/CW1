@@ -48,16 +48,31 @@ public class CartFragment extends Fragment {
         View btnCheckout = v.findViewById(R.id.button);
         if (btnCheckout != null) {
             btnCheckout.setOnClickListener(view -> {
-                Toast.makeText(getContext(), "Proceeding to checkout", Toast.LENGTH_SHORT).show();
-                // TODO: navigate to checkout
+                double total = calcTotal();
+                if (total <= 0) {
+                    Toast.makeText(getContext(), "Your cart is empty.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                // Go to Checkout
+                android.content.Intent i = new android.content.Intent(requireContext(), my.foodon.pizzamania.checkout.CheckoutActivity.class);
+                i.putExtra("cart_total", total);
+                startActivity(i);
             });
         }
 
         return v;
     }
 
+    private double calcTotal() {
+        double t = 0.0;
+        for (CartManager.CartItem item : cartAdapter.getItems()) {
+            t += item.pizza.getPrice(item.size) * item.quantity;
+        }
+        return t;
+    }
+
     private void updateTotal() {
-        double total = 0.0;
+        double total = calcTotal();
         for (CartManager.CartItem item : cartAdapter.getItems()) {
             total += item.pizza.getPrice(item.size) * item.quantity;
         }

@@ -12,4 +12,8 @@
     <!-- Optional UI text -->
     <string name="cart_title">My Cart</string>
     <string name="proceed">Proceed</string>
+
+    <!--Stripe key-->
+    <string name="stripe_publishable_key">pk_test_51RMTa8RcL6DL1aURydPa2GKgP4lcvaKSw6349cgErK61vxDghFQUYgqaVOO2Fln6HVA2xFqyeoJHvXVdnskMyzQI00QHvYr7yQ</string>
+
 </resources>
