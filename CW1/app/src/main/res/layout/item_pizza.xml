@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="160dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:layout_marginBottom="12dp"
+    android:layout_gravity="center"
+    android:backgroundTint="#FDFDFD"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="13dp">
+
+        <!-- Pizza Image -->
+        <ImageView
+            android:id="@+id/pizzaImage"
+            android:layout_width="105dp"
+            android:layout_height="105dp"
+            android:layout_marginBottom="3dp"
+            android:clipToOutline="true"
+            android:contentDescription="Pizza Image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/margherita" />
+
+        <!-- Pizza Name -->
+        <TextView
+            android:id="@+id/pizzaName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Margherita"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <!-- Description -->
+        <TextView
+            android:id="@+id/pizzaDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="Cheese &amp; tomato"
+            android:textColor="#777"
+            android:textSize="11sp" />
+
+        <!-- Size Selector -->
+        <RadioGroup
+            android:id="@+id/sizeRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="1dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioSmall"
+                android:buttonTint="@color/warm_orange"
+                android:padding="2dp"
+                android:text="S"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+            <RadioButton
+                android:id="@+id/radioMedium"
+                android:buttonTint="@color/warm_orange"
+                android:checked="true"
+                android:padding="2dp"
+                android:text="M"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+            <RadioButton
+                android:id="@+id/radioLarge"
+                android:buttonTint="@color/warm_orange"
+                android:padding="2dp"
+                android:text="L"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+        </RadioGroup>
+
+        <!-- Price -->
+        <TextView
+            android:id="@+id/pizzaPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:gravity="center"
+            android:text="Rs. 1,500"
+            android:textColor="@color/dark_green"
+            android:textSize="13sp"
+            android:textStyle="bold" />
+
+        <!-- Size-related Hint -->
+        <TextView
+            android:id="@+id/sizePriceHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            android:gravity="center"
+            android:text="(Medium)"
+            android:textColor="#888"
+            android:textSize="10sp" />
+
+        <!-- Actions row: Favorite + Add to Cart -->
+        <LinearLayout
+            android:layout_width="105dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/btnFavorite"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/rounded_button_bg2"
+                android:backgroundTint="@color/black"
+                android:contentDescription="Favorite"
+                android:src="@drawable/ic_fav_outline"
+                app:tint="@color/white" />
+
+            <ImageButton
+                android:id="@+id/addToCartBtn"
+                android:layout_width="62dp"
+                android:layout_height="31dp"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_button_bg2"
+                android:backgroundTint="@color/red"
+                android:contentDescription="Add to Cart"
+                android:src="@drawable/ic_add"
+                app:tint="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

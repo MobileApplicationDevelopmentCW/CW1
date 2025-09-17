@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="6dp"
+    android:backgroundTint="@color/white"
+    android:background="@drawable/card_background">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Order ID -->
+        <TextView
+            android:id="@+id/tvOrderId"
+            android:text="Order ID: #12345"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Customer -->
+        <TextView
+            android:id="@+id/tvCustomer"
+            android:text="Customer: John Doe"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:textColor="#555555"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Status Spinner -->
+        <Spinner
+            android:id="@+id/spinnerStatus"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
+            android:padding="8dp"/>
+
+        <!-- Amount -->
+        <TextView
+            android:id="@+id/tvAmount"
+            android:text="Amount: $25.99"
+            android:layout_marginTop="8dp"
+            android:textSize="14sp"
+            android:textColor="#388E3C"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Items -->
+        <TextView
+            android:id="@+id/tvItems"
+            android:text="Items: Pizza, Coke, Salad"
+            android:layout_marginTop="8dp"
+            android:textSize="13sp"
+            android:textColor="#777777"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <!-- Driver assignment -->
+        <TextView
+            android:id="@+id/tvDriverLabel"
+            android:layout_marginTop="12dp"
+            android:text="Assign Driver"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:textColor="#000000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <Spinner
+            android:id="@+id/spinnerDriver"
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/spinner_background"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/tvAssignedDriver"
+            android:layout_marginTop="8dp"
+            android:text="Driver: Not assigned"
+            android:textSize="13sp"
+            android:textColor="#555555"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

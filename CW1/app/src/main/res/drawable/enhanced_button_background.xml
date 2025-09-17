@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    
+    <!-- More rounded corners for modern button -->
+    <corners android:radius="20dp" />
+    
+    <!-- Gradient background for button -->
+    <gradient
+        android:startColor="#D23913"
+        android:endColor="#B8320F"
+        android:angle="45" />
+    
+    <!-- Elevation effect with stroke -->
+    <stroke
+        android:width="2dp"
+        android:color="#A02A0C" />
+    
+    <!-- Padding for button text -->
+    <padding 
+        android:left="24dp" 
+        android:top="16dp" 
+        android:right="24dp" 
+        android:bottom="16dp"/>
+</shape>

@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#F6F6F6"/> <!-- adjust to match your brown -->
+    <corners android:radius="12dp"/>
+</shape>

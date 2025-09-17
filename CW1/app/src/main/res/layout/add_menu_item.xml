@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:spacing="8dp">
+
+        <!-- Image Picker -->
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:id="@+id/imagePreview"
+            android:scaleType="centerCrop"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="Item Image"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Name Field -->
+        <EditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edittext_bg1"
+            android:hint="Item Name"
+            android:layout_marginBottom="18dp"
+            android:paddingStart="12dp"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textColorHint="#8B8787"
+            android:inputType="textCapWords"/>
+
+        <!-- Description Field -->
+        <EditText
+            android:id="@+id/etDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Description"
+            android:background="@drawable/edittext_bg1"
+            android:paddingStart="12dp"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:textColorHint="#8B8787"
+            android:inputType="textMultiLine"
+            android:lines="3"
+            android:layout_marginBottom="16dp"
+            android:gravity="top"/>
+
+        <!-- Category Dropdown -->
+        <Spinner
+            android:id="@+id/spinnerCategory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Price Fields -->
+        <EditText
+            android:id="@+id/etSmallPrice"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:hint="Small Price"
+            android:textColor="@color/black"
+            android:textColorHint="#8B8787"
+            android:textSize="13sp"
+            android:paddingStart="12dp"
+            android:background="@drawable/edittext_bg1"
+            android:layout_marginBottom="16dp"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/etMediumPrice"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edittext_bg1"
+            android:textColor="@color/black"
+            android:textColorHint="#8B8787"
+            android:textSize="13sp"
+            android:hint="Medium Price"
+            android:paddingStart="12dp"
+            android:layout_marginBottom="16dp"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:id="@+id/etLargePrice"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edittext_bg1"
+            android:textColor="@color/black"
+            android:textColorHint="#8B8787"
+            android:textSize="13sp"
+            android:paddingStart="12dp"
+            android:layout_marginBottom="16dp"
+            android:hint="Large Price"
+            android:inputType="numberDecimal"/>
+
+        <!-- Stock Checkbox -->
+        <CheckBox
+            android:id="@+id/cbInStock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stock Available"
+            android:textColor="@color/black"
+            android:checked="true"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Add Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Menu Item"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            app:cornerRadius="50dp"
+            android:textSize="12sp"
+            android:backgroundTint="@color/red"
+            android:layout_marginTop="12dp"/>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- White background for better text visibility -->
+    <solid android:color="#FFFFFF" />
+    
+    <!-- Elegant border with accent color -->
+    <stroke
+        android:width="2dp"
+        android:color="#FFFFFF" />
+    
+    <!-- Padding for better text spacing -->
+</shape>

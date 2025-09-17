@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">#090909</item> <!-- Change purple to black -->
+    </style>
+
+    <style name="CustomChipStyle" parent="Widget.MaterialComponents.Chip.Choice">
+
+        <item name="chipBackgroundColor">@color/chip_background_selector</item>
+        <item name="android:elevation">4dp</item> <!-- Chip shadow -->
+        <item name="chipCornerRadius">16dp</item> <!-- Optional rounded corners -->
+    </style>
+
+</resources>

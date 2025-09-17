@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/ic_chat"
+        android:iconTint="@color/white"
+        android:id="@+id/navChatbot"
+        android:title="Chat Assistant" />
+
+    <item
+        android:icon="@drawable/about"
+        android:iconTint="@color/white"
+        android:id="@+id/navabout"
+        android:title="About" />
+    <item
+        android:icon="@drawable/favourite"
+        android:iconTint="@color/white"
+        android:id="@+id/navFav"
+        android:title="Favourites" />
+
+    <item
+        android:icon="@drawable/custom"
+        android:iconTint="@color/white"
+        android:id="@+id/navCust"
+        android:title="Customize"/>
+
+    <item
+        android:icon="@drawable/order_history"
+        android:iconTint="@color/white"
+        android:id="@+id/navOrderhistory"
+        android:title="Order History"/>
+
+    <item
+        android:icon="@drawable/policy"
+        android:iconTint="@color/white"
+        android:id="@+id/navPolicies"
+        android:title="Policies"/>
+
+    <item
+        android:icon="@drawable/logout"
+        android:iconTint="@color/white"
+        android:id="@+id/navLogout"
+        android:title="Logout"/>
+
+    <item
+        android:icon="@drawable/exit"
+        android:iconTint="@color/white"
+        android:id="@+id/navExit"
+        android:title="Exit"/>
+
+</menu>

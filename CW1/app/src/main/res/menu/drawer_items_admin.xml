@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:icon="@drawable/about"
+        android:iconTint="@color/white"
+        android:id="@+id/navAddabout"
+        android:title="About" />
+
+    <item
+        android:icon="@drawable/policy"
+        android:iconTint="@color/white"
+        android:id="@+id/navAdPolicies"
+        android:title="Policies"/>
+
+    <item
+        android:icon="@drawable/about"
+        android:iconTint="@color/white"
+        android:id="@+id/navAdDrivers"
+        android:title="Manage Drivers"/>
+
+    <item
+        android:icon="@drawable/logout"
+        android:iconTint="@color/white"
+        android:id="@+id/navAdLogout"
+        android:title="Logout"/>
+
+    <item
+        android:icon="@drawable/exit"
+        android:iconTint="@color/white"
+        android:id="@+id/navAdExit"
+        android:title="Exit"/>
+
+</menu>

@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.PizzaMania" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.PizzaMania" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Color scheme (optional if you rely on dynamic color) -->
+        <!-- <item name="colorPrimary">@color/your_primary</item> -->
+        <!-- <item name="colorSecondary">@color/your_secondary</item> -->
+        <!-- Typography and shapes use M3 defaults -->
+    </style>
+    <style name="App.FilterChip" parent="Widget.Material3.Chip.Filter" />
+</resources>
